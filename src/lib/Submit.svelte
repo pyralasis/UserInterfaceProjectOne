@@ -4,18 +4,33 @@
     function submitEntry() {
         const date = new Date();
         let currentDate = `${date.getMonth()}/${date.getDate()}/${date.getFullYear()}`;
-        $games[$selectedGameIndex].entries.push(
+        $games[$selectedGameIndex].entries = [
+            ...$games[$selectedGameIndex].entries,
             new gameEntry(
                 $games[$selectedGameIndex].entries.length,
                 currentDate,
                 90,
             ),
-        );
+        ];
         console.log($games[$selectedGameIndex].entries);
     }
 </script>
 
 <div id="main-container">
+    <div>
+        <label for="notes">What did you like?</label><input
+            type="text"
+            id="notes"
+        />
+    </div>
+
+    <div>
+        <label for="notes">What did you dislike?</label><input
+            type="text"
+            id="notes"
+        />
+    </div>
+
     <div id="rating-container">
         <label for="rating">Rate your session on a scale of 1-10</label><input
             type="range"
@@ -38,6 +53,8 @@
     #main-container {
         display: flex;
         flex-direction: column;
+        justify-content: center;
+        align-items: center;
     }
     #rating-container {
         display: flex;

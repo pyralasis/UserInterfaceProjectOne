@@ -1,29 +1,33 @@
 <script>
     import { gameType, selectedGameIndex } from "../stores.js";
+
     export let game = new gameType();
+    export let selected = false;
 </script>
 
-<div>
-    <button
-        class="game-container"
-        id="game-{game.index}"
-        on:click={() => ($selectedGameIndex = game.index)}
-    >
-        <img src={game.coverPath} alt="a" class="game-cover" />
-        <div class="game-title">{game.title}</div>
-    </button>
-</div>
+<button
+    class="game-container"
+    class:selected
+    id="game-{game.index}"
+    style="background-image:url({game.coverPath}); background-size:100px 150px;"
+    on:click={() => ($selectedGameIndex = game.index)}
+>
+</button>
 
 <style>
+    /* div {
+        margin: 0.25em;
+    } */
     .game-container {
-        height: 150px;
+        height: 100%;
         width: 100px;
         padding: 0;
         background: none;
-        border: none;
+        border: 2px black solid;
     }
-    .game-cover {
-        height: 100px;
-        width: 100px;
+
+    .selected {
+        border: 2px solid lightblue;
+        border-radius: 10px;
     }
 </style>

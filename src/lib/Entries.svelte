@@ -1,6 +1,15 @@
 <script>
-    import { gameEntry, selectedEntry } from "../stores";
-    export let selectedGameEntries = [new gameEntry()];
+    import {
+        gameEntry,
+        selectedEntry,
+        games,
+        selectedGameIndex,
+    } from "../stores";
+
+    $: selectedGameEntries = $games[$selectedGameIndex].entries;
+    $: {
+        console.log(selectedGameEntries);
+    }
 </script>
 
 <div id="main-container">
@@ -47,5 +56,11 @@
         margin: 0;
         width: 95%;
         opacity: 50%;
+    }
+    #main-container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
     }
 </style>
