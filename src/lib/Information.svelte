@@ -1,7 +1,28 @@
 <script>
-    import { games, selectedGameIndex, gameType } from "../stores";
+    import {
+        games,
+        selectedGameIndex,
+        gameType,
+        currentGameTimePlayed,
+    } from "../stores";
     export let selectedGame = new gameType();
-    console.log($selectedGameIndex);
+
+    //Calculate total playtime
+    $: timePlayedString = "";
+    $: {
+        $currentGameTimePlayed = 0;
+        selectedGame.entries.forEach((element) => {
+            $currentGameTimePlayed += element.timePlayed;
+        });
+        timePlayedString = `Total Playtime: ${$currentGameTimePlayed} Minutes`;
+
+        if ($currentGameTimePlayed > 59) {
+            let hours = ($currentGameTimePlayed / 60).toFixed(2);
+            timePlayedString = `Total Playtime: ${hours} Hours`;
+        }
+    }
+
+    $: numGoals = selectedGame.goals.goals.length;
 </script>
 
 <div id="main-container">
@@ -11,6 +32,8 @@
         <h1 id="title">{selectedGame.title}</h1>
         <h2 id="developer">{selectedGame.developer}</h2>
         <h2 id="genres">{selectedGame.genres}</h2>
+        <h2>{timePlayedString}</h2>
+        <h2>Total Goals: {numGoals}</h2>
     </div>
 </div>
 

@@ -1,27 +1,62 @@
 <script>
+  import AddGameButton from "./lib/AddGameButton.svelte";
   import AddGame from "./lib/AddGame.svelte";
+  import Goals from "./lib/Goals.svelte";
   import Entries from "./lib/Entries.svelte";
   import GameCarousel from "./lib/GameCarousel.svelte";
   import Information from "./lib/Information.svelte";
   import Submit from "./lib/Submit.svelte";
-  import { games, selectedGameIndex } from "./stores.js";
+  import { fade } from "svelte/transition";
+
+  import {
+    games,
+    selectedGameIndex,
+    isAddingGame,
+    isEditingEntry,
+    isSubmitTransitionActive,
+  } from "./stores.js";
+  import EditEntry from "./lib/EditEntry.svelte";
 </script>
 
 <div id="left-container">
   <div id="game-carousel">
     <GameCarousel></GameCarousel>
-    <AddGame></AddGame>
+    <AddGameButton></AddGameButton>
   </div>
 
   <hr />
   <div id="information">
-    <Information bind:selectedGame={$games[$selectedGameIndex]}></Information>
+    {#if !$isAddingGame}
+      <Information bind:selectedGame={$games[$selectedGameIndex]}></Information>
+    {:else}
+      <AddGame></AddGame>
+    {/if}
   </div>
 </div>
 <div id="right-container">
+  <Goals></Goals>
+  <hr id="right-container-hr" />
+
   <Entries></Entries>
-  <hr />
-  <Submit></Submit>
+  <hr id="right-container-hr" />
+  {#if !$isEditingEntry}
+    <Submit></Submit>
+  {:else}
+    <EditEntry></EditEntry>
+  {/if}
+  {#if $isSubmitTransitionActive}
+    <div
+      id="submitted-container"
+      transition:fade={{ duration: 1000 }}
+      on:introend={() => ($isSubmitTransitionActive = false)}
+    >
+      <div>Submitted!</div>
+      <svg height="20" width="20">
+        <circle r="10" cx="10" cy="10" fill="green"></circle>
+        <text x="50%" y="50%" text-anchor="middle">✔</text>
+      </svg>
+    </div>
+  {/if}
 </div>
 
 <style>
@@ -32,12 +67,19 @@
     width: 95%;
     opacity: 30%;
   }
+
+  #right-container-hr {
+    margin: 1em 0;
+    width: 70%;
+  }
+
   #left-container {
     display: flex;
     flex-direction: column;
     align-items: center;
     height: 100%;
   }
+
   #game-carousel {
     width: 100%;
   }
@@ -52,6 +94,7 @@
     flex-direction: column;
     flex-grow: 1;
     justify-content: center;
+    align-items: center;
   }
 
   :global(#app) {
