@@ -121,4 +121,7 @@
         display: flex;
         flex-direction: row;
     }
+    div {
+        font-size: 20px;
+    }
 </style>

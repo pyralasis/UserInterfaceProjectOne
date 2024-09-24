@@ -51,4 +51,7 @@
         margin: 0;
         background-color: transparent;
     }
+    div {
+        font-size: 20px;
+    }
 </style>

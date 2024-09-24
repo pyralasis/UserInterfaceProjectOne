@@ -52,7 +52,6 @@
     }
     #cover {
         height: 500px;
-        /* width: 200px; */
         padding-bottom: 1em;
     }
     #words {
@@ -62,7 +61,7 @@
         display: flex;
         flex-direction: column;
         flex-basis: 33%;
-        align-items: center;
+        justify-content: center;
         height: 100%;
     }
 </style>

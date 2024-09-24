@@ -64,8 +64,8 @@
         display: flex;
         flex-direction: column;
         overflow-y: auto;
-        max-height: 40%;
-        height: 40%;
+        max-height: 150px;
+        height: 150px;
         width: 150px;
         background-color: transparent;
         border: 2px black solid;
@@ -100,13 +100,12 @@
         align-items: center;
         width: 70%;
         max-height: 30%;
-        height: 30%;
         flex-basis: 50;
     }
 
     p {
         padding: 0;
         margin: 0;
-        font-size: 1.2em;
+        font-size: 20px;
     }
 </style>
